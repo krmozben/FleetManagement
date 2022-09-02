@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  fleetmanagement:
+    container_name: fleetmanagement
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ElasticSearchUrl=http://elasticsearch:9200"
+      - "ConnectionStrings:DefaultConnection=Server=mssql;Database=FleetManagement;User Id=sa;Password=Passw0rd;"
+    ports:
+      - "8080:80"
+
+  mssql:
+    container_name: mssql
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "Passw0rd"
+      ACCEPT_EULA: "Y"
+
+  elasticsearch:
+    container_name: elasticsearch
+    ports:
+      - "9200:9200"
+    environment:
+      discovery.type: single-node
